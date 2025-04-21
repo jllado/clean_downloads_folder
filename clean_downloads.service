@@ -1,7 +1,0 @@
-[Unit]
-Description=Clean downloads folder
-Wants=clean_downloads.timer
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/clean_downloads.sh

@@ -1,11 +1,16 @@
 # clean_downloads_folder
 
-## Service setup
+## Setup command
 ```
 sudo cp clean_downloads.sh /usr/local/bin/clean_downloads.sh
-sudo cp clean_downloads.service /etc/systemd/system/clean_downloads.service
-sudo cp clean_downloads.timer /etc/systemd/system/clean_downloads.timer
-sudo systemctl daemon-reload
-sudo systemctl enable clean_downloads.timer
-sudo systemctl start clean_downloads.timer
+sudo chmod a+x /usr/local/bin/clean_downloads.sh
+```
+## Setup cron
+```
+mkdir -p ~/.local/var/spool/anacron
+mkdir -p ~/.local/etc && cp /etc/anacrontab ~/.local/etc
+crontab -e
+0 * * * *  /usr/sbin/anacron -s -t "${HOME}/.local/etc/anacrontab" -S "${HOME}/.local/var/spool/anacron"
+vim .local/etc/anacrontab
+1       10      clean.downloads clean_downloads.sh
 ```
